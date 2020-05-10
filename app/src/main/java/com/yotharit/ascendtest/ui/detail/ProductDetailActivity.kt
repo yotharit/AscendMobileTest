@@ -3,7 +3,6 @@ package com.yotharit.ascendtest.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -68,9 +67,8 @@ class ProductDetailActivity : AppCompatActivity() {
 		productsViewModel.productLoading.observe(this, Observer {
 			swipeLayout.isRefreshing = it
 		})
-		productsViewModel.showError.observe(this, Observer {
+		productsViewModel.showMessage.observe(this, Observer {
 			Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-			Log.d("error-vm", it)
 		})
 	}
 

@@ -43,9 +43,11 @@ p
 @app/src/main/java/com/yotharit/ascendtest/base/BaseViewHolder.kt,6/0/60fdf0dbb04bfb31dd348a13520df9306c8c85e8
 ‡
 Wapp/src/main/java/com/yotharit/ascendtest/ui/landing/adapter/ProductsRecyclerAdapter.kt,7/2/727897969c64d633e0f758e7062ee179e200e9d6
-d
-4app/src/main/res/layout/products_fragment_layout.xml,9/9/9995b0c2e1b989acf5ea6a031ee46ca0a3f4e227
 l
 <app/src/main/java/com/yotharit/ascendtest/utils/Convertor.kt,7/5/752fed5f67d9bb3ddad516743a81b776bb43cf06
 u
 Eapp/src/main/java/com/yotharit/ascendtest/utils/GridItemDecoration.kt,f/e/fe2643d71e00306571f5ed84081f43ec61528393
+[
++app/src/main/res/layout/activity_layout.xml,1/8/18f5ee6ec3428c6b532deecdb70df9a744eca688
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d

@@ -1,7 +1,6 @@
 package com.yotharit.ascendtest.ui.landing
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,9 +53,8 @@ class ProductsActivityFragment : Fragment() {
 		productsViewModel.productsList.observe(this, Observer {
 			adapter.setData(it)
 		})
-		productsViewModel.showError.observe(this, Observer {
+		productsViewModel.showMessage.observe(this, Observer {
 			Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-			Log.d("error-vm", it)
 		})
 		productsViewModel.loading.observe(this, Observer {
 			swipeLayout.isRefreshing = it

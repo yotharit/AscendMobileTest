@@ -11,16 +11,16 @@ class GridItemDecoration(private val space: Int) : RecyclerView.ItemDecoration()
 		parent: RecyclerView,
 		state: RecyclerView.State
 	) {
-		outRect.left = space;
+		outRect.left = space
 		if(parent.getChildLayoutPosition(view)%2 == 0) {
-			outRect.right = space;
+			outRect.right = space
 		}
-		outRect.bottom = space;
+		outRect.bottom = space
 
 		if (parent.getChildLayoutPosition(view) == 0) {
-			outRect.top = space;
+			outRect.top = space
 		} else {
-			outRect.top = 0;
+			outRect.top = 0
 		}
 	}
 }

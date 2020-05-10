@@ -6,6 +6,7 @@ import com.yotharit.ascendtest.api.ProductApi
 import com.yotharit.ascendtest.repository.ProductRepositoryImpl
 import com.yotharit.ascendtest.ui.landing.ProductsViewModel
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.CallAdapter
@@ -17,7 +18,12 @@ import java.util.concurrent.TimeUnit
 const val API_BASE_URL = "https://ecommerce-product-app.herokuapp.com/"
 
 val productModule = module {
-	viewModel { ProductsViewModel(get(ProductRepositoryImpl::class.java)) }
+	viewModel {
+		ProductsViewModel(
+			get(ProductRepositoryImpl::class.java),
+			androidApplication().applicationContext
+		)
+	}
 }
 
 val networkModule = module {
