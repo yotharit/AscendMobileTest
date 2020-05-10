@@ -1,0 +1,7 @@
+<resources>
+	<string name="app_name">AscendTest</string>
+    <string name="header">Start picking your treats</string>
+    <string name="new_tag">NEW</string>
+    <string name="demo_content_description">We combined the richness of creamy all-natural peanut butter with the goodness of oats into a baked soft and chewy cookie which creates the perfect balance of salty and sweet.</string>
+
+</resources>
