@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.yotharit.ascendtest.api.ProductApi
 import com.yotharit.ascendtest.repository.ProductRepositoryImpl
+import com.yotharit.ascendtest.ui.detail.ProductDetailViewModel
 import com.yotharit.ascendtest.ui.landing.ProductsViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -20,6 +21,12 @@ const val API_BASE_URL = "https://ecommerce-product-app.herokuapp.com/"
 val productModule = module {
 	viewModel {
 		ProductsViewModel(
+			get(ProductRepositoryImpl::class.java),
+			androidApplication().applicationContext
+		)
+	}
+	viewModel {
+		ProductDetailViewModel(
 			get(ProductRepositoryImpl::class.java),
 			androidApplication().applicationContext
 		)

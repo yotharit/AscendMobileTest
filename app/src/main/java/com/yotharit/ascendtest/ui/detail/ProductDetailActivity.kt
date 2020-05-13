@@ -14,13 +14,12 @@ import com.yotharit.ascendtest.extensions.visibleIf
 import com.yotharit.ascendtest.extensions.visibleIfNotBlank
 import com.yotharit.ascendtest.extensions.visibleIfNotNull
 import com.yotharit.ascendtest.model.ProductResponseItem
-import com.yotharit.ascendtest.ui.landing.ProductsViewModel
 import kotlinx.android.synthetic.main.activity_detail_layout.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProductDetailActivity : AppCompatActivity() {
 
-	private val productsViewModel: ProductsViewModel by viewModel(ProductsViewModel::class)
+	private val productsViewModel: ProductDetailViewModel by viewModel(ProductDetailViewModel::class)
 	private var id = -1
 
 	companion object {

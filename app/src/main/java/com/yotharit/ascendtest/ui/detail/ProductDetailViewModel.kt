@@ -1,4 +1,4 @@
-package com.yotharit.ascendtest.ui.landing
+package com.yotharit.ascendtest.ui.detail
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
@@ -8,24 +8,19 @@ import com.yotharit.ascendtest.repository.ProductRepository
 import com.yotharit.ascendtest.utils.SingleLiveEvent
 import com.yotharit.ascendtest.utils.UseCaseResult
 import com.yotharit.ascendtest.utils.network.base.ConnectivityProvider
-import com.yotharit.ascendtest.utils.network.base.ConnectivityProvider.ConnectivityStateListener
-import com.yotharit.ascendtest.utils.network.base.ConnectivityProvider.NetworkState
-import com.yotharit.ascendtest.utils.network.base.ConnectivityProvider.NetworkState.ConnectedState
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class ProductsViewModel(private val productRepository: ProductRepository, context: Context) :
+class ProductDetailViewModel(private val productRepository: ProductRepository, context: Context) :
 	ViewModel(),
-	CoroutineScope, ConnectivityStateListener {
+	CoroutineScope, ConnectivityProvider.ConnectivityStateListener {
 
 	private val job = Job()
 
 	private val provider: ConnectivityProvider by lazy { ConnectivityProvider.createProvider(context) }
-
-	val loading = MutableLiveData<Boolean>()
-	val productsList = MutableLiveData<ArrayList<ProductResponseItem>>()
 	val showMessage = SingleLiveEvent<String>()
-	val itemId = SingleLiveEvent<Int>()
+	val product = MutableLiveData<ProductResponseItem>()
+	val productLoading = MutableLiveData<Boolean>()
 
 	override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
@@ -35,7 +30,7 @@ class ProductsViewModel(private val productRepository: ProductRepository, contex
 		job.cancel()
 	}
 
-	override fun onStateChange(state: NetworkState) {
+	override fun onStateChange(state: ConnectivityProvider.NetworkState) {
 		if (state.hasInternet()) {
 			showMessage.value = "Connected to Internet."
 		} else {
@@ -44,19 +39,18 @@ class ProductsViewModel(private val productRepository: ProductRepository, contex
 	}
 
 	init {
-		fetchProducts()
 		provider.addListener(this)
 	}
 
-	fun fetchProducts() {
+	fun getProductById(id: Int) {
 		if (provider.getNetworkState().hasInternet()) {
-			loading.value = true
+			productLoading.value = true
 			launch {
-				val result = withContext(Dispatchers.IO) { productRepository.getProducts() }
-				loading.value = false
+				val result = withContext(Dispatchers.IO) { productRepository.getProductById(id) }
+				productLoading.value = false
 				when (result) {
 					is UseCaseResult.Success -> {
-						productsList.value = result.data
+						product.value = result.data
 					}
 					is UseCaseResult.Error -> {
 						showMessage.value = result.exception.message
@@ -64,16 +58,12 @@ class ProductsViewModel(private val productRepository: ProductRepository, contex
 				}
 			}
 		} else {
-			loading.value = false
+			productLoading.value = false
 			showMessage.value = "Network connection lost."
 		}
 	}
 
-	fun itemClick(id: Int) {
-		itemId.value = id
-	}
-
-	private fun NetworkState.hasInternet(): Boolean {
-		return (this as? ConnectedState)?.hasInternet == true
+	private fun ConnectivityProvider.NetworkState.hasInternet(): Boolean {
+		return (this as? ConnectivityProvider.NetworkState.ConnectedState)?.hasInternet == true
 	}
 }
