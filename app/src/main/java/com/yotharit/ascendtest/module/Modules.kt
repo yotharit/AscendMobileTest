@@ -10,9 +10,7 @@ import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import retrofit2.CallAdapter
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -37,7 +35,6 @@ val networkModule = module {
 	single {
 		createWebService<ProductApi>(
 			okHttpClient = createHttpClient(),
-			factory = RxJava2CallAdapterFactory.create(),
 			baseUrl = API_BASE_URL
 		)
 	}
@@ -59,11 +56,11 @@ fun createHttpClient(): OkHttpClient {
 }
 
 inline fun <reified T> createWebService(
-	okHttpClient: OkHttpClient, factory: CallAdapter.Factory, baseUrl: String
+	okHttpClient: OkHttpClient, baseUrl: String
 ): T {
 	val retrofit = Retrofit.Builder().baseUrl(baseUrl)
 		.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-		.addCallAdapterFactory(CoroutineCallAdapterFactory()).addCallAdapterFactory(factory)
+		.addCallAdapterFactory(CoroutineCallAdapterFactory())
 		.client(okHttpClient)
 		.build()
 	return retrofit.create(T::class.java)
