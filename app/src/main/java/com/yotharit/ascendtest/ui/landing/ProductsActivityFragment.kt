@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,6 +22,14 @@ class ProductsActivityFragment : Fragment() {
 
 	private val productsViewModel: ProductsViewModel by viewModel(ProductsViewModel::class)
 	private lateinit var adapter: ProductsRecyclerAdapter
+
+	companion object {
+		fun newInstance() : ProductsActivityFragment {
+			val fragment = ProductsActivityFragment()
+			fragment.arguments = bundleOf() // Future
+			return fragment
+		}
+	}
 
 	override fun onCreateView(
 		inflater: LayoutInflater,

@@ -12,7 +12,7 @@ class ProductsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_layout)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(fragmentContainer.id, ProductsActivityFragment(), null).commit()
+                .replace(fragmentContainer.id, ProductsActivityFragment.newInstance(), null).commit()
         }
     }
 
